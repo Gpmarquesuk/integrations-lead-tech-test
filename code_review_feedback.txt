@@ -1,0 +1,69 @@
+Hi Lottie,
+
+I've had a chance to review the code in WindowsAPIProject.cpp, and overall, it looks well-structured and follows best practices. Here are a few points for consideration:
+
+1. **Consistency in Naming:**
+	Ensure that variable and function names follow a consistent naming convention. In C++, it's common to use CamelCase for function names and camelCase for variable names.
+	Verify that naming accurately reflects the purpose or content of the variable or function.
+   - I noticed that the variable naming is generally consistent, but there are a few places where it deviates slightly. For instance, in `InitInstance`, the window handle is named `hWnd`, while in `WndProc`, it's named `hWnd` as well. It might be helpful to maintain consistent naming across functions.
+	Example:
+	// Inconsistent naming in InitInstance function
+	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
+	// Suggested improvement
+	HWND mainWindowHandle = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
+
+2. **Error Handling:**
+	Ensure that error handling is robust and provides useful information for debugging.
+   - In `wWinMain`, there's a check for `InitInstance` failure, which is great. However, it might be beneficial to provide more detailed error information to aid debugging.
+	Example:
+    // Existing error handling
+	if (!InitInstance(hInstance, nCmdShow)) {
+    return FALSE;
+	}
+	// Suggested improvement
+    if (!InitInstance(hInstance, nCmdShow)) {
+        // Consider logging or showing an error message with more details about the failure.
+        return GetLastError();
+    }
+    
+3. **Comments:**
+	Evaluate whether the code is self-explanatory. If certain parts are complex or might be unclear to someone else reading the code, I suggest adding comments to explain the logic or purpose.
+	Comments should not state the obvious but rather provide insights into why something is done a certain way.
+   - The code is generally self-explanatory, but consider adding a few comments where the logic might be non-trivial, especially in `WndProc`. This could help anyone maintaining the code in the future.
+	Example:
+	// Existing comment
+	// TODO: Place code here.
+
+	// Suggested improvement
+	// TODO: If there are any specific initialization steps required at this point, add comments explaining them.
+
+	
+4. **Resource IDs:**
+	Confirm that the code assumes correct definitions of resource IDs in associated resource files.
+	I suggest adding a comment to clarify this assumption, ensuring that future maintainers are aware of it.
+   - It's assumed that the resource IDs are correctly defined in associated resource files, as they are used throughout the code. A brief comment mentioning this assumption might be helpful.
+   Example:
+   // Existing usage of resource IDs
+	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+
+	// Suggested improvement
+	// Assuming that resource IDs like IDS_APP_TITLE are correctly defined in resource files.
+	 LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+
+
+5. **Extensibility:**
+	Acknowledge the code's extensibility and suggest how additional features or improvements could be integrated seamlessly.
+	Consider commenting on potential areas for future expansion.
+   - The code structure allows for easy extensibility. If there are plans to expand the application, it might be worth commenting on how new features could be integrated seamlessly.
+
+
+
+Thanks for the effort you've put into the code! Let me know if you have any questions or if there's anything specific you'd like further feedback on.
+
+Kind Regards,
+Gustavo Marques
+
+
+
