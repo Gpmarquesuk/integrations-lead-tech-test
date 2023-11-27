@@ -26,18 +26,33 @@ int APIENTRY wWinMain( _In_ HINSTANCE hInstance,
 {
 	UNREFERENCED_PARAMETER( hPrevInstance );
 	UNREFERENCED_PARAMETER( lpCmdLine );
-
+	// Existing comment
 	// TODO: Place code here.
 
+	// Suggested improvement
+	// TODO: If there are any specific initialization steps required at this point, add comments explaining them.
+
 	// Initialize global strings
+	// Existing usage of resource IDs
 	LoadStringW( hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING );
+	// Suggested improvement
+// Assuming that resource IDs like IDS_APP_TITLE are correctly defined in resource files.
+	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+
 	LoadStringW( hInstance, IDC_WINDOWSAPIPROJECT, szWindowClass, MAX_LOADSTRING );
 	MyRegisterClass( hInstance );
 
 	// Perform application initialization:
+	// Existing error handling
 	if ( !InitInstance( hInstance, nCmdShow ) )
 	{
 		return FALSE;
+	}
+	// Suggested improvement
+	// Consider providing more detailed error information for debugging purposes.
+	if (!InitInstance(hInstance, nCmdShow)) {
+		// You may log error details or return GetLastError().
+		return GetLastError();
 	}
 
 	HACCEL hAccelTable = LoadAccelerators( hInstance, MAKEINTRESOURCE( IDC_WINDOWSAPIPROJECT ) );
@@ -98,10 +113,12 @@ ATOM MyRegisterClass( HINSTANCE hInstance )
 BOOL InitInstance( HINSTANCE hInstance, int nCmdShow )
 {
 	hInst = hInstance; // Store instance handle in our global variable
-
+	// Inconsistent naming in InitInstance function
 	HWND hWnd = CreateWindowW( szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr );
-
+	// Suggested improvement
+	// Consider using a consistent naming convention, e.g., mainWindowHandle instead of hWnd.
+	HWND mainWindowHandle = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 	if ( !hWnd )
 	{
 		return FALSE;
@@ -180,3 +197,5 @@ INT_PTR CALLBACK About( HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam )
 	}
 	return (INT_PTR)FALSE;
 }
+// Existing structure allowing easy extensibility
+// Consider commenting on how new features can be integrated seamlessly without major code modifications.
